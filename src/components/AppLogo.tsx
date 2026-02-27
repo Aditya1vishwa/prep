@@ -1,0 +1,14 @@
+export default function AppLogo({ className = "" }: { className?: string }) {
+    return (
+        <a href="/" className={`flex items-center gap-2 self-center font-semibold tracking-tight ${className}`}>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                className="size-6 fill-foreground"
+            >
+                <path d="M295.65 187.81c6.32 6.95 9.48 15.84 9.48 26.66s-3.16 19.05-9.48 25.72-15.58 10-27.77 10h-35.21v-72.8h35.21c12.19 0 21.45 3.48 27.77 10.42zM512 150v212c0 82.84-67.16 150-150 150H150C67.16 512 0 444.84 0 362V150C0 67.16 67.16 0 150 0h212c82.84 0 150 67.16 150 150zm-146.88 64.13c0-16.41-3.96-30.79-11.88-43.15s-19.17-22.02-33.75-28.97c-14.59-6.95-31.79-10.42-51.61-10.42h-121v35.21l25.8 5.47v167.65l-25.8 5.47v35.03h111.6v-35.03l-25.81-5.47v-43.75h35.21c19.82 0 37.03-3.42 51.61-10.25 14.58-6.84 25.83-16.41 33.75-28.71s11.88-26.66 11.88-43.07z" />
+            </svg>
+            <span>PrepBuddy</span>
+        </a>
+    );
+}
