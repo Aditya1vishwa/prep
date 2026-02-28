@@ -124,8 +124,8 @@ export const adminApi = {
         axiosInstance.put(`/admin/users/${userId}`, data),
     deleteUser: (userId: string, hard = false) =>
         axiosInstance.delete(`/admin/users/${userId}`, { params: { hard } }),
-    createWorkspace: (data: { name: string; type?: string; description?: string; userId?: string }) =>
-        axiosInstance.post("/admin/workspaces", data),
+    createWorkspace: (userId: string, data: { name: string; type?: string; description?: string; members?: { email: string; role?: string }[] }) =>
+        axiosInstance.post(`/admin/users/${userId}/workspaces`, data),
     changeStatus: (userId: string, status: string) =>
         axiosInstance.patch(`/admin/users/${userId}/status`, { status }),
 

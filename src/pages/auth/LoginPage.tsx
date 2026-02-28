@@ -36,7 +36,11 @@ export default function LoginPage() {
                 UStore("workspaces", workspaces ?? []),
             ]);
             toast.success(`Welcome back, ${user.name}!`);
-            navigate(getDashboardRoute(user.role), { replace: true });
+            if (user.role === "user" && !user.onboardingCompleted) {
+                navigate("/onboarding", { replace: true });
+            } else {
+                navigate(getDashboardRoute(user.role), { replace: true });
+            }
         },
         onError: (err: { response?: { data?: { message?: string } } }) => {
             toast.error(err?.response?.data?.message || "Login failed. Check your credentials.");

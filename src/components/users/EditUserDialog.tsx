@@ -110,7 +110,7 @@ export function EditUserDialog({ user, onClose }: EditUserDialogProps) {
     const [createWsOpen, setCreateWsOpen] = useState(false);
     const [newWsForm, setNewWsForm] = useState({ name: "", type: "team" as any, description: "" });
     const { mutate: adminCreateWs, isPending: isCreatingWs } = useMutation({
-        mutationFn: () => adminApi.createWorkspace({ ...newWsForm, userId: user!._id }),
+        mutationFn: () => adminApi.createWorkspace(user!._id, newWsForm),
         onSuccess: () => {
             toast.success("Workspace created");
             setCreateWsOpen(false);

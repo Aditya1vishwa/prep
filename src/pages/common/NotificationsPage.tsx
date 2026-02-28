@@ -60,7 +60,7 @@ export default function NotificationsPage() {
                                         <p className="text-sm font-medium capitalize">{n.key.replace(/-/g, " ")}</p>
                                         {!n.isRead && <Badge className="text-[10px]">New</Badge>}
                                     </div>
-                                    <p className="text-sm text-muted-foreground mt-1">{n.value}</p>
+                                    <p className="text-sm text-muted-foreground mt-1">{n.value.message}</p>
                                     <p className="text-xs text-muted-foreground mt-2">
                                         {new Date(n.createdAt).toLocaleString()}
                                     </p>

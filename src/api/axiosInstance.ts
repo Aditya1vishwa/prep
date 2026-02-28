@@ -1,8 +1,8 @@
 import axios from "axios";
 import useUserStore from "@/store/userStore";
+import Cookies from "js-cookie";
 
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8002/api/v1";
-
 const axiosInstance = axios.create({
     baseURL: BASE_URL,
     withCredentials: true,
@@ -11,18 +11,15 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
     const { user, workspaces } = useUserStore.getState() as any;
-    const selectedWorkspaceId =
-        user?.selectedWorkspaceId ||
-        user?.defaultWorkspace?._id ||
-        workspaces?.[0]?._id;
-
-    if (selectedWorkspaceId) {
+    const workspaceId = Cookies.get("workspaceId") || user?.selectedWorkspaceId || user?.defaultWorkspace?._id || workspaces?.[0]?._id;
+    if (workspaceId) {
         config.headers = config.headers ?? {};
-        (config.headers as Record<string, string>)["x-workspace-id"] = selectedWorkspaceId;
+        (config.headers as Record<string, string>)["x-workspace-id"] = workspaceId;
     }
 
     return config;
 });
+
 
 // Response interceptor
 axiosInstance.interceptors.response.use(

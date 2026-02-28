@@ -32,13 +32,23 @@ export default function SignupPage() {
     const { mutate, isPending } = useMutation({
         mutationFn: () => authApi.signup({ name, email, password }),
         onSuccess: (res) => {
-            const { user } = res.data.data as { user: AuthUser };
+            const payload = (res.data as { data?: { user?: AuthUser } })?.data;
+            const user = payload?.user;
+            if (!user) {
+                toast.success("Account created successfully. Please login.");
+                navigate("/login", { replace: true });
+                return;
+            }
             Promise.all([
                 UStore("user", user),
                 UStore("workspaces", []),
             ]);
             toast.success(`Account created! Welcome, ${user.name} 🎉`);
-            navigate(getDashboardRoute(user.role), { replace: true });
+            if (user.role === "user" && !user.onboardingCompleted) {
+                navigate("/onboarding", { replace: true });
+            } else {
+                navigate(getDashboardRoute(user.role), { replace: true });
+            }
         },
         onError: (err: { response?: { data?: { message?: string } } }) => {
             toast.error(err?.response?.data?.message || "Signup failed. Please try again.");

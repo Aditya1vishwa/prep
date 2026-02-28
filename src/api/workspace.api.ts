@@ -5,22 +5,18 @@ export interface CreateWorkspacePayload {
     name: string;
     description?: string;
     type?: "personal" | "team";
-    members?: { userId: string; role?: string }[];
+    members?: { email: string; role?: string }[];
 }
 
 export const workspaceApi = {
     listMyWorkspaces: () =>
-        axiosInstance.get<{ data: WorkspaceItem[] }>("/workspaces"),
-
+        axiosInstance.get<{ data: WorkspaceItem[] }>("/user/workspaces"),
     createWorkspace: (data: CreateWorkspacePayload) =>
-        axiosInstance.post<{ data: WorkspaceItem }>("/workspaces", data),
-
+        axiosInstance.post<{ data: WorkspaceItem }>("/user/workspaces", data),
     addMember: (workspaceId: string, email: string, role = "member") =>
-        axiosInstance.post(`/workspaces/${workspaceId}/members`, { email, role }),
-
+        axiosInstance.post(`/user/workspaces/${workspaceId}/members`, { email, role }),
     updateMemberStatus: (workspaceId: string, memberId: string, status: "active" | "inactive") =>
-        axiosInstance.put(`/workspaces/${workspaceId}/members/${memberId}`, { status }),
-
+        axiosInstance.put(`/user/workspaces/${workspaceId}/members/${memberId}`, { status }),
     removeMember: (workspaceId: string, memberId: string) =>
-        axiosInstance.delete(`/workspaces/${workspaceId}/members/${memberId}`),
+        axiosInstance.delete(`/user/workspaces/${workspaceId}/members/${memberId}`),
 };

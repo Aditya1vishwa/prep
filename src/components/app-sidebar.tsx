@@ -28,14 +28,20 @@ import { AddWorkspaceDialog } from "@/components/workspaces/AddWorkspaceDialog"
 import useUserStore from "@/store/userStore"
 import { getDashboardRoute } from "@/lib/dashboard-route"
 import { ChevronsUpDown } from "lucide-react"
-
+import Cookies from "js-cookie"
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const user = useUserStore((s) => s.user)
   const isAdmin = user?.role === "admin"
-  const workspaces = useUserStore((s) => s.workspaces)
-  const [addWsOpen, setAddWsOpen] = useState(false)
-  const [activeWs, setActiveWs] = useState<string | null>(null)
+  const workspaces = useUserStore((s) => s.workspaces);
+  const UStore = useUserStore((s) => s.UStore)
 
+  const [addWsOpen, setAddWsOpen] = useState(false)
+  const [activeWs, setWs] = useState<string | null>(null)
+  const setActiveWs = (ws: string) => {
+    setWs(ws);
+    Cookies.set("workspaceId", ws, { expires: 365 });
+    UStore("user.selectedWorkspaceId", ws);
+  }
   const currentWs = workspaces.find((w: any) => w._id === activeWs) ?? workspaces[0]
 
   const navItems = [

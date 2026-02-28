@@ -11,6 +11,7 @@ export interface AuthUser {
     role: "user" | "admin";
     status: string;
     avatar?: { url?: string; path?: string };
+    onboardingCompleted?: boolean;
     defaultWorkspace?: {
         _id: string;
         name: string;

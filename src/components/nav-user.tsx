@@ -32,7 +32,7 @@ import { Link, useNavigate } from "react-router"
 import { toast } from "sonner"
 import useUserStore from "@/store/userStore"
 import { useState } from "react"
-
+import Cookies from "js-cookie"
 export function NavUser({
   user,
 }: {
@@ -57,7 +57,8 @@ export function NavUser({
       UStore("user", null),
       UStore("workspaces", []),
     ])
-    navigate("/login", { replace: true })
+    navigate("/login", { replace: true });
+    Cookies.remove("workspaceId");
     try {
       await authApi.logout()
       toast.success("Logged out successfully")

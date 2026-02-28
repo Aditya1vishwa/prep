@@ -4,11 +4,12 @@ import LoginPage from "@/pages/auth/LoginPage";
 import SignupPage from "@/pages/auth/SignupPage";
 import AdminDashboardPage from "@/pages/admin/AdminDashboardPage";
 import UserDashboardPage from "@/pages/user/UserDashboardPage";
+import OnboardingPage from "@/pages/user/OnboardingPage";
 import UsersPage from "@/pages/admin/UsersPage";
 import SettingsPage from "@/pages/admin/SettingsPage";
 import ProfilePage from "@/pages/user/ProfilePage";
 import OverviewPage from "@/pages/OverviewPage";
-import NotificationsPage from "@/pages/NotificationsPage";
+import NotificationsPage from "@/pages/common/NotificationsPage";
 import ProtectedRoute from "@/ProtectedRoute";
 import AuthLayout from "@/layouts/AuthLayout";
 
@@ -37,6 +38,14 @@ export default function AppRouter() {
                     <Route
                         path="/overview"
                         element={<Navigate to="/" replace />}
+                    />
+                    <Route
+                        path="/onboarding"
+                        element={
+                            <ProtectedRoute allowedFor="authenticated">
+                                <OnboardingPage />
+                            </ProtectedRoute>
+                        }
                     />
 
                     <Route
